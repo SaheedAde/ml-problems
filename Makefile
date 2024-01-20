@@ -1,4 +1,4 @@
-.PHONY: all clean install base-install install-conda install-poetry
+.PHONY: all clean install base-install install-conda update update-conda
 
 
 ######################################################################
@@ -29,8 +29,9 @@ clean:
 	rm -rf htmlcov
 	rm -rf .tox/
 	rm -rf docs/_build
+	@conda env remove --name ml-problems
 
-install: base-install install-conda install-poetry
+install: base-install install-conda
 
 base-install:
 	@echo "Installing base dependencies"
@@ -38,12 +39,10 @@ base-install:
 
 install-conda:
 	@echo "Installing conda dependencies"
-	@conda env remove --name ml-problems
 	@conda env create -f environment.yml
 
-install-poetry:
-	@echo "Installing poetry dependencies"
-	@pip install poetry
-	@poetry env use 3.7.6
-	@poetry lock --no-update
-	@poetry install
+update: update-conda
+
+update-conda:
+	@echo "Updating conda dependencies"
+	@conda env update -f environment.yml
