@@ -1,4 +1,4 @@
-.PHONY: all
+.PHONY: all clean install base-install install-conda install-poetry
 
 
 ######################################################################
@@ -11,8 +11,6 @@ args = `arg="$(filter-out $@,$(MAKECMDGOALS))" && echo $${arg:-${1}}`
 ######################################################################
 
 include .env
-include MakefileConda
-include MakefilePoetry
 
 export $(shell sed 's/=.*//' .env)
 
@@ -40,6 +38,8 @@ base-install:
 
 install-conda:
 	@echo "Installing conda dependencies"
+	@conda env remove --name ml-problems
+	@conda env create -f environment.yml
 
 install-poetry:
 	@echo "Installing poetry dependencies"
