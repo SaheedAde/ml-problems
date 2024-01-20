@@ -44,6 +44,6 @@ install-conda:
 install-poetry:
 	@echo "Installing poetry dependencies"
 	@pip install poetry
-	@poetry env use 3.7
+	@poetry env use 3.7.6
 	@poetry lock --no-update
 	@poetry install
