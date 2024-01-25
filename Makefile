@@ -1,4 +1,4 @@
-.PHONY: all clean install base-install install-conda update update-conda
+.PHONY: all clean install base-install install-conda update update-conda run-examples
 
 
 ######################################################################
@@ -15,7 +15,7 @@ include .env
 export $(shell sed 's/=.*//' .env)
 
 
-all: clean install
+all: clean install install base-install install-conda update update-conda run-examples
 
 clean:
 	@find . -name '*.pyc' -exec rm -rf {} \;
@@ -46,3 +46,7 @@ update: update-conda
 update-conda:
 	@echo "Updating conda dependencies"
 	@conda env update -f environment.yml
+
+run-examples:
+	@echo "Running the project on examples"
+	@conda run -n ml-problems python examples_main.py
