@@ -3,23 +3,18 @@ CLASSIFICATION = "classification"
 
 ALLOWED_REGRESSION_METRICS = ["rmse", "mse", "mae"]
 ALLOWED_CLASSIFICATION_METRICS = {
-    "balanced": [
+    0: [  # not_skewed
         "accuracy",
         "precision",
         "recall",
         "f1",
     ],  # f1 or accuracy are the best?
-    "unbalanced": [
+    1: [  # skewed
         "precision",
         "recall",
         "f1",
         "auc",
     ],  # auc is the best?
-}
-
-BALANCED_BOOL_MAP = {
-    True: "balanced",
-    False: "unbalanced",
 }
 
 METRIC_INTERPRETATION_MAP = {

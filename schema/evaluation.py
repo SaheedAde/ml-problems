@@ -9,7 +9,6 @@ from pydantic import (
 from utils.constants import (
     ALLOWED_CLASSIFICATION_METRICS,
     ALLOWED_REGRESSION_METRICS,
-    BALANCED_BOOL_MAP,
     CLASSIFICATION,
     REGRESSION,
 )
@@ -19,7 +18,7 @@ class EvaluationSchema(BaseModel):
     """pydantic schema for JSON Validations"""
 
     problem_type: str
-    dataset_balanced: bool = False
+    skewed: bool = True
     metric: Optional[str] = None
 
     @validator("problem_type")
@@ -43,9 +42,8 @@ class EvaluationSchema(BaseModel):
 
         problem_type = values.get("problem_type")
         if problem_type == CLASSIFICATION:
-            dataset_balanced = cast(bool, values.get("dataset_balanced", False))
-            balanced_identifier = BALANCED_BOOL_MAP[dataset_balanced]
-            if metric not in ALLOWED_CLASSIFICATION_METRICS[balanced_identifier]:
+            skewed = cast(bool, values.get("skewed", False))
+            if metric not in ALLOWED_CLASSIFICATION_METRICS[skewed]:
                 raise ValueError("Metric not supported")
         if problem_type == REGRESSION:
             if metric not in ALLOWED_REGRESSION_METRICS:

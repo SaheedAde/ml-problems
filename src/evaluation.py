@@ -14,7 +14,6 @@ from utils.classification_evaluations import (
 from utils.constants import (
     ALLOWED_CLASSIFICATION_METRICS,
     ALLOWED_REGRESSION_METRICS,
-    BALANCED_BOOL_MAP,
     CLASSIFICATION,
     METRIC_INTERPRETATION_MAP,
     REGRESSION,
@@ -29,20 +28,20 @@ class Evaluation:
     def __init__(
         self,
         problem_type: str,
-        dataset_balanced: bool = False,
+        skewed: bool = True,
         metric: Optional[str] = None,
     ):
         data = validate(
             {
                 "problem_type": problem_type,
-                "dataset_balanced": dataset_balanced,
+                "skewed": skewed,
                 "metric": metric,
             }
         )
 
         self.metric = data.metric
+        self.skewed = data.skewed
         self.problem_type = data.problem_type
-        self.dataset_balanced = data.dataset_balanced
 
     def evaluate(self, y_true: List[float], y_pred: List[float]) -> Dict[str, Any]:
         metrics_to_calculate = []
@@ -51,10 +50,7 @@ class Evaluation:
 
         if not metrics_to_calculate:
             if self.problem_type == CLASSIFICATION:
-                balanced_identifier = BALANCED_BOOL_MAP[self.dataset_balanced]
-                metrics_to_calculate = ALLOWED_CLASSIFICATION_METRICS[
-                    balanced_identifier
-                ]
+                metrics_to_calculate = ALLOWED_CLASSIFICATION_METRICS[self.skewed]
 
             if self.problem_type == REGRESSION:
                 metrics_to_calculate = ALLOWED_REGRESSION_METRICS
@@ -190,7 +186,7 @@ class Evaluation:
             y_pred = [2, 1, 3, 1, 2, 3, 3, 1, 2]
 
         if self.problem_type == CLASSIFICATION:
-            if self.dataset_balanced:
+            if not self.skewed:
                 y_true = [0, 1, 1, 1, 0, 0, 0, 1]
                 y_pred = [0, 1, 0, 1, 0, 1, 0, 0]
             else:

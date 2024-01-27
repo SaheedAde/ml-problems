@@ -94,4 +94,5 @@ target/
 # Mypy cache
 .mypy_cache/
 
-# Layers libraries
+# CSV
+mnist_data.csv
