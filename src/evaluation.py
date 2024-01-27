@@ -2,6 +2,7 @@ import logging
 from typing import Any, Dict, List, Optional
 
 import numpy as np
+from schema.evaluation import validate
 from sklearn import metrics
 from utils.classification_evaluations import (
     accuracy,
@@ -31,27 +32,17 @@ class Evaluation:
         dataset_balanced: bool = False,
         metric: Optional[str] = None,
     ):
-        if problem_type not in [CLASSIFICATION, REGRESSION]:
-            raise ValueError("Problem type not supported")
+        data = validate(
+            {
+                "problem_type": problem_type,
+                "dataset_balanced": dataset_balanced,
+                "metric": metric,
+            }
+        )
 
-        if problem_type == CLASSIFICATION:
-            if dataset_balanced not in [True, False]:
-                raise ValueError("Dataset balanced not supported")
-
-            balanced_identifier = BALANCED_BOOL_MAP[dataset_balanced]
-            if (
-                metric
-                and metric not in ALLOWED_CLASSIFICATION_METRICS[balanced_identifier]
-            ):
-                raise ValueError("Metric not supported")
-
-        if problem_type == REGRESSION:
-            if metric and metric not in ALLOWED_REGRESSION_METRICS:
-                raise ValueError("Metric not supported")
-
-        self.metric = metric
-        self.problem_type = problem_type
-        self.dataset_balanced = dataset_balanced
+        self.metric = data.metric
+        self.problem_type = data.problem_type
+        self.dataset_balanced = data.dataset_balanced
 
     def evaluate(self, y_true: List[float], y_pred: List[float]) -> Dict[str, Any]:
         metrics_to_calculate = []

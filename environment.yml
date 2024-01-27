@@ -195,6 +195,7 @@ dependencies:
 #     - partd==1.1.0
 #     - pathspec==0.8.0
 #     - patsy==0.5.1
+    - pdir2
 #     - pexpect==4.7.0
 #     - pickleshare==0.7.5
 #     - pkginfo==1.5.0.1
@@ -208,6 +209,7 @@ dependencies:
 #     - ptyprocess==0.6.0
 #     - py==1.8.1
 #     - py-cpuinfo==5.0.0
+    - pydantic==1.4
 #     - py-gfm==0.1.4
 #     - py-rouge==1.1
 #     - pyaml==20.4.0

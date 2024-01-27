@@ -1,10 +1,10 @@
 import logging
-from typing import Optional
 
 import numpy as np
 import pandas as pd
+from schema.fold import validate
 from sklearn import datasets, model_selection
-from utils.constants import CLASSIFICATION, REGRESSION
+from utils.constants import REGRESSION
 
 
 class Fold:
@@ -12,25 +12,16 @@ class Fold:
     Class for fold
     """
 
-    def __init__(self, problem_type: str, dataset_balanced: Optional[bool] = None):
-        if problem_type not in [CLASSIFICATION, REGRESSION]:
-            raise ValueError("Problem type not supported")
+    def __init__(self, problem_type: str, dataset_balanced: bool = False):
+        data = validate(
+            {"problem_type": problem_type, "dataset_balanced": dataset_balanced}
+        )
 
-        if problem_type == CLASSIFICATION:
-            if dataset_balanced not in [True, False]:
-                raise ValueError("Dataset balanced not supported")
-
-        if problem_type == REGRESSION and dataset_balanced is not None:
-            logging.warning(
-                "Regression doesn't need dataset balanced parameter, clearing it"
-            )
-            dataset_balanced = None
-
-        self.problem_type = problem_type
-        self.dataset_balanced = dataset_balanced
+        self.problem_type = data.problem_type
+        self.dataset_balanced = data.dataset_balanced
 
         self.create_fold = self._do_nothing
-        if problem_type == "regression":
+        if problem_type == REGRESSION:
             self.create_fold = self._stratified_kfold_regression
 
     def _do_nothing(self, data: pd.DataFrame) -> pd.DataFrame:
