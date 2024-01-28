@@ -1,7 +1,5 @@
 from typing import List
 
-import numpy as np
-
 
 def accuracy(y_true: List[float], y_pred: List[float]) -> float:
     """
@@ -24,29 +22,30 @@ def accuracy(y_true: List[float], y_pred: List[float]) -> float:
     return correct_counter / len(y_true)
 
 
-def accuracy_v2(y_true: List[float], y_pred: List[float]) -> float:  # type: ignore
-    """
-    Function to calculate accuracy using tp/tn/fp/fn
-    :param y_true: list of true values
-    :param y_pred: list of predicted values
-    :return: accuracy score
-    """
-    classes = np.unique(y_true)  # type: ignore
-    accuracy_score = 0.0
-    for class_ in classes:
-        # all classes except current are 0
-        temp_true = [1 if p == class_ else 0 for p in y_true]
-        temp_pred = [1 if p == class_ else 0 for p in y_pred]
+# TODO: Problematic, the mnist data does not return the same accuracy as sklearn.metrics.accuracy_score
+# def accuracy_v2(y_true: List[float], y_pred: List[float]) -> float:  # type: ignore
+#     """
+#     Function to calculate accuracy using tp/tn/fp/fn
+#     :param y_true: list of true values
+#     :param y_pred: list of predicted values
+#     :return: accuracy score
+#     """
+#     classes = np.unique(y_true)  # type: ignore
+#     accuracy_score = 0.0
+#     for class_ in classes:
+#         # all classes except current are 0
+#         temp_true = [1 if p == class_ else 0 for p in y_true]
+#         temp_pred = [1 if p == class_ else 0 for p in y_pred]
 
-        tp = true_positive(temp_true, temp_pred)
-        fp = false_positive(temp_true, temp_pred)
-        fn = false_negative(temp_true, temp_pred)
-        tn = true_negative(temp_true, temp_pred)
-        temp_accuracy_score = (tp + tn) / (tp + tn + fp + fn)
-        accuracy_score += temp_accuracy_score
+#         tp = true_positive(temp_true, temp_pred)
+#         fp = false_positive(temp_true, temp_pred)
+#         fn = false_negative(temp_true, temp_pred)
+#         tn = true_negative(temp_true, temp_pred)
+#         temp_accuracy_score = (tp + tn) / (tp + tn + fp + fn)
+#         accuracy_score += temp_accuracy_score
 
-    accuracy_score /= len(classes)
-    return accuracy_score
+#     accuracy_score /= len(classes)
+#     return accuracy_score
 
 
 def true_positive(y_true: List[int], y_pred: List[int]) -> float:

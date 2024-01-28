@@ -50,3 +50,9 @@ update-conda:
 run-examples:
 	@echo "Running the project on examples"
 	@conda run -n ml-problems python examples_main.py
+
+train:
+	@echo "Running the project"
+	@conda run -n ml-problems python mnist_train.py --model decision_tree_gini
+	@conda run -n ml-problems python mnist_train.py --model decision_tree_entropy
+	@conda run -n ml-problems python mnist_train.py --model rf

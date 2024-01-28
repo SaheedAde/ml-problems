@@ -27,3 +27,8 @@ METRIC_INTERPRETATION_MAP = {
     "rmse": "Lower is better",
     "mae": "Lower is better",
 }
+
+DATA_FOLDER = "input"
+MODEL_FOLDER = "models"
+
+MNIST = "mnist"

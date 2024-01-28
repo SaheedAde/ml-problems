@@ -12,12 +12,20 @@ class Fold:
     Class for fold
     """
 
-    def __init__(self, problem_type: str, dataset_balanced: bool = False):
+    def __init__(
+        self,
+        problem_type: str,
+        dataset_balanced: bool = False,
+        target_col_name: str = "target",
+        num_of_folds: int = 5,
+    ):
         data = validate(
             {"problem_type": problem_type, "dataset_balanced": dataset_balanced}
         )
 
+        self.num_of_folds = num_of_folds
         self.problem_type = data.problem_type
+        self.target_col_name = target_col_name
         self.dataset_balanced = data.dataset_balanced
 
         self.create_fold = self._do_nothing
@@ -43,10 +51,12 @@ class Fold:
         num_bins = int(np.floor(1 + np.log2(len(data))))
 
         # bin targets
-        data.loc[:, "bins"] = pd.cut(data["target"], bins=num_bins, labels=False)  # type: ignore
+        data.loc[:, "bins"] = pd.cut(  # type: ignore
+            data[self.target_col_name], bins=num_bins, labels=False
+        )
 
         # initiate the kfold class from model_selection module
-        kf = model_selection.StratifiedKFold(n_splits=5)
+        kf = model_selection.StratifiedKFold(n_splits=self.num_of_folds)
 
         # fill the new kfold column
         # note that, instead of targets, we use bins!
@@ -68,7 +78,7 @@ class Fold:
 
         if self.dataset_balanced:
             # initiate the kfold class from model_selection module
-            kf = model_selection.KFold(n_splits=5)
+            kf = model_selection.KFold(n_splits=self.num_of_folds)
 
             # fill the new kfold column
             for fold, (trn_, val_) in enumerate(kf.split(X=data)):  # type: ignore
@@ -77,10 +87,10 @@ class Fold:
             return data
 
         # fetch targets
-        y = data.target.values  # type: ignore
+        y = data[self.target_col_name].values  # type: ignore
 
         # initiate the kfold class from model_selection module
-        kf = model_selection.StratifiedKFold(n_splits=5)
+        kf = model_selection.StratifiedKFold(n_splits=self.num_of_folds)
 
         # fill the new kfold column
         for f, (t_, v_) in enumerate(kf.split(X=data, y=y)):  # type: ignore
@@ -97,7 +107,7 @@ class Fold:
             )
             # create a dataframe out of our numpy arrays
             df = pd.DataFrame(X, columns=[f"feature_{i}" for i in range(X.shape[1])])
-            df.loc[:, "target"] = y
+            df.loc[:, self.target_col_name] = y
 
             logging.info(f"Dataset before REGRESSION fold creation is : {df.head()}")
 
@@ -112,40 +122,29 @@ class Fold:
         if self.dataset_balanced:
             # we create a sample dataset with 15000 samples
             # and 100 features and 1 target
+            text = "BALANCED"
             X, y = datasets.make_classification(  # type: ignore
                 n_samples=15000, n_features=100, n_classes=2
             )
-            # create a dataframe out of our numpy arrays
-            df = pd.DataFrame(X, columns=[f"feature_{i}" for i in range(X.shape[1])])
-            df.loc[:, "target"] = y
-
-            logging.info(
-                f"Dataset before BALANCED CLASSIFICATION fold creation is : {df.head()}"
-            )
-
-            # create folds
-            df = self.create_fold(df)
-
-            logging.info("Dataset after BALANCED CLASSIFICATION fold creation")
-            logging.info(f"Head : {df.head()}")
-            logging.info(f"Tail : {df.tail()}")
         else:
             # we create a sample dataset with 15000 samples
             # and 100 features and 1 target
+            text = "UNBALANCED"
             X, y = datasets.make_classification(  # type: ignore
                 n_samples=15000, n_features=100, n_classes=2, weights=[0.95, 0.05]
             )
-            # create a dataframe out of our numpy arrays
-            df = pd.DataFrame(X, columns=[f"feature_{i}" for i in range(X.shape[1])])
-            df.loc[:, "target"] = y
 
-            logging.info(
-                f"Dataset before UNBALANCED CLASSIFICATION fold creation is : {df.head()}"
-            )
+        # create a dataframe out of our numpy arrays
+        df = pd.DataFrame(X, columns=[f"feature_{i}" for i in range(X.shape[1])])
+        df.loc[:, self.target_col_name] = y
 
-            # create folds
-            df = self.create_fold(df)
+        logging.info(
+            f"Dataset before {text} CLASSIFICATION fold creation is : {df.head()}"
+        )
 
-            logging.info("Dataset after UNBALANCED CLASSIFICATION fold creation")
-            logging.info(f"Head : {df.head()}")
-            logging.info(f"Tail : {df.tail()}")
+        # create folds
+        df = self.create_fold(df)
+
+        logging.info(f"Dataset after {text} CLASSIFICATION fold creation")
+        logging.info(f"Head : {df.head()}")
+        logging.info(f"Tail : {df.tail()}")

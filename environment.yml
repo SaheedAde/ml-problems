@@ -24,7 +24,7 @@ dependencies:
 #   - icu=58.2=h9c2bf20_1
 #   - intel-openmp=2019.4=243
 #   - jasper=2.0.14=h07fcdf6_1
-  # - joblib=0.14.1=py_0
+  - joblib=0.14.1=py_0
 #   - jpeg=9b=h024ee3a_2
 #   - ld_impl_linux-64=2.33.1=h53a641e_7
 #   - libcroco=0.6.12=h468c787_1001
@@ -58,7 +58,7 @@ dependencies:
 #   - pango=1.40.14=he752989_2
 #   - pcre=8.43=he6710b0_0
 #   - pillow=7.0.0=py37hb39fc2d_0
-#   - pip=19.3.1=py37_0
+  - pip=19.3.1=py37_0
 #   - pixman=0.38.0=h7b6447c_0
 #   - py-opencv=3.4.2=py37hb342d67_1
 #   - pycparser=2.19=py37_0
@@ -67,7 +67,7 @@ dependencies:
 #   - python_abi=3.7=1_cp37m
 #   - pytz=2019.3=py_0
 #   - readline=7.0=h7b6447c_5
-#   - setuptools=44.0.0=py37_0
+  - setuptools=44.0.0=py37_0
 #   - six=1.13.0=py37_0
 #   - sqlite=3.30.1=h7b6447c_0
 #   - tk=8.6.8=hbc83047_0
@@ -154,12 +154,12 @@ dependencies:
 #     - json5==0.8.5
 #     - jsonpickle==1.4.1
 #     - jsonschema==3.2.0
-#     - jupyter==1.0.0
-#     - jupyter-client==5.3.4
-#     - jupyter-console==6.0.0
-#     - jupyter-core==4.6.1
-#     - jupyterlab==1.2.4
-#     - jupyterlab-server==1.0.6
+    - jupyter==1.0.0
+    - jupyter-client==5.3.4
+    - jupyter-console==6.0.0
+    - jupyter-core==4.6.1
+    - jupyterlab==1.2.4
+    - jupyterlab-server==1.0.6
 #     - kaggle==1.5.6
 #     - keras-applications==1.0.8
 #     - keras-preprocessing==1.1.0
@@ -245,7 +245,7 @@ dependencies:
 #     - sacremoses==0.0.38
 #     # - sandesh==0.2
     - scikit-image==0.16.2
-    - scikit-learn==0.22.1
+    - scikit-learn==0.23.1
     - scikit-optimize==0.7.4
     - scipy==1.4.1
     - seaborn==0.10.0

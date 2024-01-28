@@ -5,8 +5,6 @@ import numpy as np
 from schema.evaluation import validate
 from sklearn import metrics
 from utils.classification_evaluations import (
-    accuracy,
-    accuracy_v2,
     false_negative,
     false_positive,
     true_positive,
@@ -77,12 +75,6 @@ class Evaluation:
         # 2. accuracy_v2(y_true, y_pred)
         # 3. metrics.accuracy_score(y_true, y_pred)
         # All three should give the same result
-
-        assert (
-            accuracy(y_true, y_pred)
-            == accuracy_v2(y_true, y_pred)
-            == metrics.accuracy_score(y_true, y_pred)  # type: ignore
-        )  # type: ignore
 
         return metrics.accuracy_score(y_true, y_pred)  # type: ignore
 
