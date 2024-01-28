@@ -1,0 +1,37 @@
+{
+    "fold_0": {
+        "accuracy": 0.8668571428571429,
+        "interpretation": "Higher is better. (between 0 and 1). model is correct 86.49728109474356 times. Macro average f1 is calculated for multi-class classification. There are others for multi-class classification: micro, weighted, samples",
+        "precision": 0.8650870233341174,
+        "recall": 0.8649383570179262,
+        "f1": 0.8649728109474356
+    },
+    "fold_1": {
+        "accuracy": 0.8723571428571428,
+        "interpretation": "Higher is better. (between 0 and 1). model is correct 87.05820805770121 times. Macro average f1 is calculated for multi-class classification. There are others for multi-class classification: micro, weighted, samples",
+        "precision": 0.8707508187251876,
+        "recall": 0.8706066047175083,
+        "f1": 0.8705820805770121
+    },
+    "fold_2": {
+        "accuracy": 0.8716428571428572,
+        "interpretation": "Higher is better. (between 0 and 1). model is correct 86.99178791491403 times. Macro average f1 is calculated for multi-class classification. There are others for multi-class classification: micro, weighted, samples",
+        "precision": 0.8700206027858238,
+        "recall": 0.8699057890814407,
+        "f1": 0.8699178791491402
+    },
+    "fold_3": {
+        "accuracy": 0.8698571428571429,
+        "interpretation": "Higher is better. (between 0 and 1). model is correct 86.79922624216718 times. Macro average f1 is calculated for multi-class classification. There are others for multi-class classification: micro, weighted, samples",
+        "precision": 0.8680081867330898,
+        "recall": 0.8680546767778103,
+        "f1": 0.8679922624216718
+    },
+    "fold_4": {
+        "accuracy": 0.8687857142857143,
+        "interpretation": "Higher is better. (between 0 and 1). model is correct 86.69782363034126 times. Macro average f1 is calculated for multi-class classification. There are others for multi-class classification: micro, weighted, samples",
+        "precision": 0.8670773506621339,
+        "recall": 0.8670295447530707,
+        "f1": 0.8669782363034126
+    }
+}

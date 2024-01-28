@@ -1,0 +1,37 @@
+{
+    "fold_0": {
+        "accuracy": 0.8802857142857143,
+        "interpretation": "Higher is better. (between 0 and 1). model is correct 87.88413575338613 times. Macro average f1 is calculated for multi-class classification. There are others for multi-class classification: micro, weighted, samples",
+        "precision": 0.8790246164932446,
+        "recall": 0.8787355029749643,
+        "f1": 0.8788413575338614
+    },
+    "fold_1": {
+        "accuracy": 0.8837142857142857,
+        "interpretation": "Higher is better. (between 0 and 1). model is correct 88.2096907104767 times. Macro average f1 is calculated for multi-class classification. There are others for multi-class classification: micro, weighted, samples",
+        "precision": 0.8823401494808214,
+        "recall": 0.8819571199159084,
+        "f1": 0.8820969071047671
+    },
+    "fold_2": {
+        "accuracy": 0.8830714285714286,
+        "interpretation": "Higher is better. (between 0 and 1). model is correct 88.14680467230451 times. Macro average f1 is calculated for multi-class classification. There are others for multi-class classification: micro, weighted, samples",
+        "precision": 0.8816799098836953,
+        "recall": 0.881409598935474,
+        "f1": 0.8814680467230451
+    },
+    "fold_3": {
+        "accuracy": 0.8797142857142857,
+        "interpretation": "Higher is better. (between 0 and 1). model is correct 87.809549209211 times. Macro average f1 is calculated for multi-class classification. There are others for multi-class classification: micro, weighted, samples",
+        "precision": 0.8782933474387636,
+        "recall": 0.8780878068439474,
+        "f1": 0.87809549209211
+    },
+    "fold_4": {
+        "accuracy": 0.8825714285714286,
+        "interpretation": "Higher is better. (between 0 and 1). model is correct 88.12121147917745 times. Macro average f1 is calculated for multi-class classification. There are others for multi-class classification: micro, weighted, samples",
+        "precision": 0.8813493419924778,
+        "recall": 0.8811481323923905,
+        "f1": 0.8812121147917745
+    }
+}
